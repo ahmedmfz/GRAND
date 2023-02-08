@@ -1,6 +1,6 @@
 <?php 
  
- namespace App\Services;
+namespace App\Services;
 
 use App\Jobs\SendAdEmail;
 use App\Models\Advertisement;

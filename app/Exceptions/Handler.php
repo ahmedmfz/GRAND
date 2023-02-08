@@ -2,11 +2,15 @@
 
 namespace App\Exceptions;
 
+use App\Traits\ApiHelperTrait;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    use ApiHelperTrait;
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -43,8 +47,13 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (NotFoundHttpException $e) {
+            return $this->returnWrong('Object Not Found' , JsonResponse::HTTP_NOT_FOUND);
+        });
+
+
+        $this->renderable(function (Throwable $e) {
+           return $this->returnWrong($e->getMessage());
         });
     }
 }

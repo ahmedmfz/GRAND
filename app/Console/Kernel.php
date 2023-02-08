@@ -18,8 +18,8 @@ class Kernel extends ConsoleKernel
     {
        $schedule->call(function(){
                 AdsEmails::sendDailyEmails();
-        })->everyMinute();
-        // ->dailyAt('20:00');
+        })->dailyAt('20:00');
+        // ->everyMinute(); for test 
     }
 
     /**
